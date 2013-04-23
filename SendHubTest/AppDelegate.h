@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class Database;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+- (CGRect) currentScreenSize;
 
 @end

@@ -7,12 +7,19 @@
 //
 
 #import "AppDelegate.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+
+    //Spin the activity wheel on the status bar when there is network activity
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+
+    
     return YES;
 }
 							
@@ -41,6 +48,20 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+//This method returns the current screen size regardless of orientation
+- (CGRect) currentScreenSize
+{
+    UIScreen *screen = [UIScreen mainScreen];
+    int width = screen.currentMode.size.width;
+    int height = screen.currentMode.size.height;
+    int realWidth = (UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))? MAX (width, height) : MIN (width, height);
+    realWidth = realWidth/screen.scale;
+    int realHeight = (UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))? MIN (width, height) : MAX (width, height);
+    realHeight = realHeight/screen.scale;
+    realHeight -= 20;
+    return CGRectMake(0, 0, realWidth, realHeight);
 }
 
 @end
