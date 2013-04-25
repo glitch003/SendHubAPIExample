@@ -21,7 +21,6 @@
 		835DCAD5171FA2B00032B18F /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 835DCAD4171FA2B00032B18F /* icon.png */; };
 		835DCAD7171FA2BB0032B18F /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 835DCAD6171FA2BB0032B18F /* icon@2x.png */; };
 		83D1F1A7171E3BC80072D556 /* SendButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83D1F1A6171E3BC80072D556 /* SendButton@2x.png */; };
-		83D1F1AD171E3EF60072D556 /* MessageEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D1F1AC171E3EF60072D556 /* MessageEntryViewController.m */; };
 		83D1F1B0171E3F8C0072D556 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D1F1AF171E3F8C0072D556 /* QuartzCore.framework */; };
 		83DB2ED1171E20C500D33169 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB2ED0171E20C500D33169 /* UIKit.framework */; };
 		83DB2ED3171E20C500D33169 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB2ED2171E20C500D33169 /* Foundation.framework */; };
@@ -63,9 +62,8 @@
 		833CF174171FA24F0042C342 /* SendButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SendButton.png; sourceTree = "<group>"; };
 		835DCAD4171FA2B00032B18F /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
 		835DCAD6171FA2BB0032B18F /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../icon@2x.png"; sourceTree = "<group>"; };
+		83B790D817297DAA00FF41C0 /* APIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIConstants.h; sourceTree = "<group>"; };
 		83D1F1A6171E3BC80072D556 /* SendButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SendButton@2x.png"; sourceTree = "<group>"; };
-		83D1F1AB171E3EF60072D556 /* MessageEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEntryViewController.h; sourceTree = "<group>"; };
-		83D1F1AC171E3EF60072D556 /* MessageEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEntryViewController.m; sourceTree = "<group>"; };
 		83D1F1AF171E3F8C0072D556 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		83DB2ECD171E20C500D33169 /* SendHubTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SendHubTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83DB2ED0171E20C500D33169 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -211,8 +209,7 @@
 				83DB2EF4171E220000D33169 /* ContactTableViewController.m */,
 				83DB2F00171E2D4800D33169 /* ContactDetailsTableViewController.h */,
 				83DB2F01171E2D4800D33169 /* ContactDetailsTableViewController.m */,
-				83D1F1AB171E3EF60072D556 /* MessageEntryViewController.h */,
-				83D1F1AC171E3EF60072D556 /* MessageEntryViewController.m */,
+				83B790D817297DAA00FF41C0 /* APIConstants.h */,
 				83DB2ED7171E20C500D33169 /* Supporting Files */,
 			);
 			path = SendHubTest;
@@ -307,7 +304,6 @@
 				83DB2EF5171E220000D33169 /* ContactTableViewController.m in Sources */,
 				83DB2EF8171E227700D33169 /* ContactObject.m in Sources */,
 				83DB2F02171E2D4800D33169 /* ContactDetailsTableViewController.m in Sources */,
-				83D1F1AD171E3EF60072D556 /* MessageEntryViewController.m in Sources */,
 				833CF164171FA12B0042C342 /* AFHTTPClient.m in Sources */,
 				833CF165171FA12B0042C342 /* AFHTTPRequestOperation.m in Sources */,
 				833CF166171FA12B0042C342 /* AFImageRequestOperation.m in Sources */,

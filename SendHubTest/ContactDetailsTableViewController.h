@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class ContactObject;
+@class ContactObject, AppDelegate;
 
 @interface ContactDetailsTableViewController : UITableViewController<UIAlertViewDelegate, UITextFieldDelegate>{
     UIButton *sendMessageButton;
     UIAlertView *successAlert;
-    NSArray *textBoxes;
+    NSArray *textBoxes, *facts;
+    NSString *msgText;
+    
 }
 
 @property (nonatomic) ContactObject *theContact;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class MBProgressHUD;
+@class MBProgressHUD, AppDelegate;
 
 @interface ContactTableViewController : UITableViewController<UIAlertViewDelegate>{
     NSMutableArray *tableContents;

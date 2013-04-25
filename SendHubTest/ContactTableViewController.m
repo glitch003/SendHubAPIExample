@@ -41,6 +41,8 @@
     //initially load the contacts from the server
     [self loadContacts];
     
+
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,8 +67,7 @@
 - (void) loadContacts{
     //Show a loading overlay while we attempt to load the user's contacts
     [hud show:YES];
-    
-    NSURL *url = [NSURL URLWithString:@"https://api.sendhub.com/v1/contacts/?username=4073610378&api_key=9d051050bd1e27d368cc95cb633dfb8c440e8dc8"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.sendhub.com/v1/contacts/?username=%@&api_key=%@", USERNAME, APIKEY]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
@@ -145,7 +146,7 @@
     //retrieve the contact object from the table
     ContactObject *co = [tableContents objectAtIndex:[indexPath row]];
     
-    NSMutableURLRequest *request = [httpClient requestWithMethod:@"DELETE" path:[NSString stringWithFormat:@"https://api.sendhub.com/v1/contacts/%d/?username=4073610378&api_key=9d051050bd1e27d368cc95cb633dfb8c440e8dc8", co.contactId] parameters:Nil];
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"DELETE" path:[NSString stringWithFormat:@"https://api.sendhub.com/v1/contacts/%d/?username=%@&api_key=%@", co.contactId, USERNAME, APIKEY] parameters:Nil];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         

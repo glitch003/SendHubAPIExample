@@ -1,0 +1,2 @@
+#define USERNAME @""
+#define APIKEY @""

@@ -11,6 +11,8 @@
 
 @implementation AppDelegate
 
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
@@ -19,6 +21,8 @@
     //Spin the activity wheel on the status bar when there is network activity
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 
+    
+    
     
     return YES;
 }
