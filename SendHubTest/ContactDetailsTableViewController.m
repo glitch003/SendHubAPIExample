@@ -229,7 +229,7 @@
         params = [NSDictionary dictionaryWithObjectsAndKeys:
                   ((UITextField*)textBoxes[0]).text, @"name",
                   ((UITextField*)textBoxes[1]).text, @"number", nil];
-        request = [httpClient requestWithMethod:@"POST" path:@"https://api.sendhub.com/v1/contacts/?username=4073610378&api_key=9d051050bd1e27d368cc95cb633dfb8c440e8dc8" parameters:Nil];
+        request = [httpClient requestWithMethod:@"POST" path:[NSString stringWithFormat:@"https://api.sendhub.com/v1/contacts/?username=%@&api_key=%@", USERNAME, APIKEY] parameters:Nil];
     }else{
         //save the current contact
         
