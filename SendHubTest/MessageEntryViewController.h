@@ -10,7 +10,7 @@
 
 @class ContactObject;
 
-@interface MessageEntryViewController : UIViewController<UITextViewDelegate>{
+@interface MessageEntryViewController : UIViewController<UITextViewDelegate, UIAlertViewDelegate>{
     UITextView *messageEntryArea;
     NSArray *facts;
 }

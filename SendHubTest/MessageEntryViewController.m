@@ -60,7 +60,7 @@
         //portrait mode
         messageEntryArea.frame = CGRectMake(20, 30, sRect.size.width - 40, 145);
     }
-
+    
     
 }
 
@@ -97,7 +97,7 @@
     
     NSURL *url = [NSURL URLWithString:@"https://api.sendhub.com"];
     AFHTTPClient *httpClient = [AFHTTPClient clientWithBaseURL:url];
-
+    
     /*JSON format:
      {
      "contacts": [
@@ -109,13 +109,13 @@
     //create a parameter object which will be serialized into a JSON object
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSArray arrayWithObject:[NSString stringWithFormat:@"%d", _theContact.contactId]], @"contacts",
-                             messageEntryArea.text, @"text", nil];
+                            messageEntryArea.text, @"text", nil];
     
     NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST" path:@"/v1/messages/?username=4073610378&api_key=9d051050bd1e27d368cc95cb633dfb8c440e8dc8" parameters:Nil];
     
     [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:Nil]];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-
+    
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
         [hud hide:YES];
@@ -137,6 +137,7 @@
                               delegate: nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
+        alert.delegate = self;
         [alert show];
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -155,7 +156,7 @@
     }];
     
     
-    [operation start]; 
+    [operation start];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -168,6 +169,10 @@
     }
     
     return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
