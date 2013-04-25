@@ -12,6 +12,7 @@
 
 @interface MessageEntryViewController : UIViewController<UITextViewDelegate>{
     UITextView *messageEntryArea;
+    NSArray *facts;
 }
 
 @property (nonatomic) ContactObject *theContact;
