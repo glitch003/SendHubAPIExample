@@ -72,7 +72,7 @@
     //load a catfact into the box
     int ind = arc4random() % [facts count];
     
-    messageEntryArea.text = [facts objectAtIndex:ind];
+    messageEntryArea.text = [NSString stringWithFormat:@"Catfacts: %@",[facts objectAtIndex:ind]];
     
     
 }
