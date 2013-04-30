@@ -120,9 +120,114 @@
 
 //this function is called when the send button is pressed
 - (void) SendButtonPressed:(UIButton*)sender{
-    //when the user presses the send button, we should advance them to the message entry screen
-    //[self performSegueWithIdentifier:@"MessageEntrySegue" sender:self];
-    [self sendMessage];
+    if(_theContact == nil){
+        //the contact doesn't exist yet, so let's create it
+        
+        
+        //first, let's make sure they have a valid phone number
+        if(![self checkPhoneNumber:((UITextField*)textBoxes[1]).text]){
+            
+            //if the number is invalid, show an alert informing the user
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle: @"Error"
+                                  message: @"Invalid phone number"
+                                  delegate: nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        
+        
+        //hide the keyboard so that the loading HUD doesn't end up under it
+        for(UITextField* tf in textBoxes){
+            [tf resignFirstResponder];
+        }
+        
+        //Show a loading overlay while we attempt to save the contact
+        MBProgressHUD *hud = [[MBProgressHUD alloc] init];
+        hud.labelText = @"Please Wait...";
+        hud.detailsLabelText = @"Saving Contact";
+        [self.view addSubview:hud];
+        [hud show:YES];
+        
+        NSURL *url = [NSURL URLWithString:@"https://api.sendhub.com"];
+        AFHTTPClient *httpClient = [AFHTTPClient clientWithBaseURL:url];
+        
+        
+        
+        NSDictionary *params;
+        NSMutableURLRequest *request;
+        
+        //create a parameter object which will be serialized into a JSON object
+        params = [NSDictionary dictionaryWithObjectsAndKeys:
+                  ((UITextField*)textBoxes[0]).text, @"name",
+                  ((UITextField*)textBoxes[1]).text, @"number", nil];
+        request = [httpClient requestWithMethod:@"POST" path:[NSString stringWithFormat:@"https://api.sendhub.com/v1/contacts/?username=%@&api_key=%@", USERNAME, APIKEY] parameters:Nil];
+       
+        
+        
+        
+        [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:params options:NSJSONWritingPrettyPrinted error:Nil]];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                        
+            NSLog(@"response: %@", JSON);
+            
+            _theContact = [ContactObject alloc];
+            _theContact.contactId = [[JSON objectForKey:@"id"] intValue];
+            _theContact.name = ((UITextField*)textBoxes[0]).text;
+            _theContact.number = ((UITextField*)textBoxes[1]).text;
+            
+            [hud hide:YES];
+            
+            //send the message
+            [self sendMessage];
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            
+            NSLog(@"error: %@", error);
+            
+            [hud hide:YES];
+            
+            NSString *errMsg = nil;
+            
+            //grab the error message from the response
+            if([[JSON objectForKey:@"number"] count] > 0){
+                errMsg = [[JSON objectForKey:@"number"] objectAtIndex:0];
+                
+                //pop the keyboard back up in the number field since the error was with the number and they will probably want to edit the number
+                [((UITextField*)textBoxes[1]) becomeFirstResponder];
+                
+            }else if([[JSON objectForKey:@"name"] count] > 0){
+                errMsg = [[JSON objectForKey:@"name"] objectAtIndex:0];
+                
+                //pop the keyboard back up in the number field since the error was with the name and they will probably want to edit the name
+                [((UITextField*)textBoxes[0]) becomeFirstResponder];
+            }
+            
+            //if the error message hasn't been set by the response, set it to the localized description of the error.
+            if(!errMsg){
+                errMsg = error.localizedDescription;
+            }
+            
+            
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle: @"Error"
+                                  message: errMsg
+                                  delegate: nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+        }];
+        
+        
+        [operation start];
+    }else{
+    
+        [self sendMessage];
+    }
 }
 
 /*
@@ -306,15 +411,12 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    //check if it's the alertview we want.  we don't want this to be triggered if the user is hitting 'ok' on an error message
-    //if([alertView isEqual:successAlert]){
-        
-        //reload the contacts for the contact view controller since we may have modified a contact name
-        [((ContactTableViewController*)[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count] - 2]) loadContacts];
-        
-        //return to the contact list so that they can see the change if they made one.  whether or not this needs to happen is debatable and a matter of user experience, but I thought for this little sample app it would be good to see the change if the user just made one
-        [self.navigationController popViewControllerAnimated:YES];
-    //}
+    
+    //reload the contacts for the contact view controller since we may have modified a contact name
+    [((ContactTableViewController*)[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count] - 2]) loadContacts];
+    
+    
+   
 }
 
 - (void) sendMessage{
