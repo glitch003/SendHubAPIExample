@@ -6,7 +6,7 @@ This app is now a cat-facts sender.  It allows you to enter a SendHub API key an
 
 Put your sendhub username and API key in the file APIConstants.h.
 
-Note: you must save a contact before you can send a message to them!  This will be fixed in the future.
+Note: If you make changes to a contact, you must save it before you send it a message.  This might be fixed in the future.
 
 
 
