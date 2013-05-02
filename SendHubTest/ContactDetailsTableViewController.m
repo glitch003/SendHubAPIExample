@@ -77,7 +77,7 @@
     //load a catfact into the box
     int ind = arc4random() % [facts count];
     
-    msgText = [NSString stringWithFormat:@"Catfacts: %@",[facts objectAtIndex:ind]];
+    msgText = [NSString stringWithFormat:@"Catfax: %@",[facts objectAtIndex:ind]];
 }
 
 - (void)didReceiveMemoryWarning
